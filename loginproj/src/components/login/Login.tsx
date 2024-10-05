@@ -1,3 +1,6 @@
+"use client";
+import { useForm } from "react-hook-form";
+import * as val from "@/utils/validationGe";
 import Link from "next/link";
 import React from "react";
 import {} from "react-icons";
@@ -5,6 +8,14 @@ import { GoArrowLeft } from "react-icons/go";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  function onSubmit(data: any) {
+    console.log(data);
+  }
   return (
     <div className="   bg-white text-[16px]">
       <div className="flex justify-center items-center   flex-col gap-3 ">
@@ -12,14 +23,29 @@ export default function Login() {
 
         <p>შედით თქვენს ანგარიშზე</p>
 
-        <form className="flex flex-col justify-centers gap-4 px-[5px] w-[350px] sm:w-[399px]  ">
+        <form
+          className="flex flex-col justify-centers gap-4 px-[5px] w-[350px] sm:w-[399px]  "
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <label className="w-full">
             <h2 className="p-[3px]">ელ.ფოსტა</h2>
             <input
               className="w-full h-[67px] rounded-[12px] border-[1px] p-[15px] "
               type="email"
               placeholder="ელ.ფოსტა"
+              {...register("email", {
+                required: val.requiredMsg,
+                maxLength: {
+                  value: 100,
+                  message: val.emailMaxLengthMsg,
+                },
+                pattern: {
+                  value: val.emailPattern,
+                  message: val.emailErrorMsg,
+                },
+              })}
             />
+            {errors.email && <p>{errors.email.message}</p>}
           </label>
 
           <label className="relative   ">
@@ -28,7 +54,23 @@ export default function Login() {
               className="w-full h-[67px] rounded-[12px] border-[1px] p-[15px]  "
               type="password"
               placeholder="Enter your password"
+              {...register("password", {
+                required: val.requiredMsg,
+                maxLength: {
+                  value: 20,
+                  message: val.passwordMaxLengthMsg,
+                },
+                minLength: {
+                  value: 8,
+                  message: val.passwordMinLengthMsg,
+                },
+                pattern: {
+                  value: val.passwordPattern,
+                  message: val.passwordMsg,
+                },
+              })}
             />
+            {errors.password && <p>{errors.password.message}</p>}
 
             <div className="absolute top-[55px] right-[17px] text-[20px]">
               {/* <FaRegEye />  */}
@@ -46,7 +88,10 @@ export default function Login() {
               პაროლის აღდგენა
             </Link>
           </p>
-          <button className=" rounded-[10px] w-full h-[56px] bg-red-600 text-white">
+          <button
+            type="submit"
+            className=" rounded-[10px] w-full h-[56px] bg-red-600 text-white"
+          >
             შესვლა
           </button>
 
