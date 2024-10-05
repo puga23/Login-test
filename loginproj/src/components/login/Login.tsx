@@ -2,12 +2,14 @@
 import { useForm } from "react-hook-form";
 import * as val from "@/utils/validationGe";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import {} from "react-icons";
 import { GoArrowLeft } from "react-icons/go";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 export default function Login() {
+  const [visibility, setVisibility] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -16,6 +18,12 @@ export default function Login() {
   function onSubmit(data: any) {
     console.log(data);
   }
+
+  function funcEye() {
+    setVisibility(!visibility);
+    console.log("test");
+  }
+
   return (
     <div className="   bg-white text-[16px]">
       <div className="flex justify-center items-center   flex-col gap-3 ">
@@ -52,7 +60,7 @@ export default function Login() {
             <h2 className="p-[3px]">პაროლი</h2>
             <input
               className="w-full h-[67px] rounded-[12px] border-[1px] p-[15px]  "
-              type="password"
+              type={visibility ? "text" : "password"}
               placeholder="Enter your password"
               {...register("password", {
                 required: val.requiredMsg,
@@ -74,16 +82,26 @@ export default function Login() {
 
             <div className="absolute top-[55px] right-[17px] text-[20px]">
               {/* <FaRegEye />  */}
-              <FaRegEyeSlash />
+
+              {visibility ? (
+                <FaRegEye onClick={funcEye} />
+              ) : (
+                <FaRegEyeSlash onClick={funcEye} />
+              )}
             </div>
           </label>
 
           <label className="flex gap-2 items-center ">
-            <input type="checkbox" /> <p className="">დაიმახსოვრე შესვლა</p>
+            <input
+              className="cursor-pointer"
+              {...register("saveLogin")}
+              type="checkbox"
+            />{" "}
+            <p className="">დაიმახსოვრე შესვლა</p>
           </label>
 
           <p className=" text-[15px]">
-            დაგავისწყდა პაროლი?
+            დაგავიწყდა პაროლი?
             <Link href={"#"} className="text-blue-600">
               პაროლის აღდგენა
             </Link>
