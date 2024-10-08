@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import * as val from "@/utils/validationGe";
 import Link from "next/link";
 import React from "react";
-import {} from "react-icons";
-import { GoArrowLeft } from "react-icons/go";
+
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 export default function Login() {
