@@ -12,6 +12,7 @@ export default function MainRegister() {
         <span>ან გააგრძელე</span>{" "}
         <hr className="w-[20%] border-1 border-black" />
       </div>
+      <form action=""></form>
     </div>
   );
 }

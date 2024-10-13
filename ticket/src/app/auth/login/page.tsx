@@ -1,3 +1,8 @@
+import MainLogin from "@/components/auth/login/MainLogin";
 export default function page() {
-  return <div>login</div>;
+  return (
+    <div>
+      <MainLogin />
+    </div>
+  );
 }
