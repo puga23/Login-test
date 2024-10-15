@@ -1,7 +1,21 @@
 "use client";
 import Link from "next/link";
 import SociaBtn from "../SociaBtn";
+import { useForm } from "react-hook-form";
+
+type Login = {
+  email: string;
+  password: string | number;
+  checkbox: boolean;
+};
+
 export default function MainLogin() {
+  const {
+    register,
+    handleSubmit,
+    fomState: { errors },
+  } = useForm();
+
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-center font-semibold text-[16px]">შესვლა</h1>
