@@ -3,7 +3,7 @@ import { Span } from "next/dist/trace";
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
-
+import * as val from "@/utils/validationGe";
 type Input = {
   email: string;
 };
@@ -38,7 +38,17 @@ export default function MainForgotPassword() {
             className="h-[45px] w-full border-[1px] rounded-[12px] input-shadow pl-[18px] mt-[8px] placeholder:text-[14px] "
             placeholder="შეიყვანეთ თქვენი ელ.ფოსტა"
             type="email"
-            {...register("email", { required: "ეს ველი სავალდებულოა" })}
+            {...register("email", {
+              required: val.requiredMsg,
+              pattern: {
+                value: val.emailPattern,
+                message: val.emailErrorMsg,
+              },
+              maxLength: {
+                value: 254,
+                message: val.emailMaxLengthMsg,
+              },
+            })}
           />
           {errors.email && (
             <span className="text-red-600">{errors.email.message}</span>

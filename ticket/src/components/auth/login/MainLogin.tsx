@@ -2,6 +2,7 @@
 import Link from "next/link";
 import SociaBtn from "../SociaBtn";
 import { useForm } from "react-hook-form";
+import * as val from "@/utils/validationGe";
 
 type Login = {
   email: string;
@@ -13,20 +14,40 @@ export default function MainLogin() {
   const {
     register,
     handleSubmit,
-    fomState: { errors },
-  } = useForm();
+    formState: { errors },
+  } = useForm<Login>();
+  function onSubmit(data: Login) {
+    console.log(data);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-center font-semibold text-[16px]">შესვლა</h1>
-      <form className=" flex flex-col gap-[16px] mt-[30px] sm:mt-[37px] w-[295px]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className=" flex flex-col gap-[16px] mt-[30px] sm:mt-[37px] w-[295px]"
+      >
         <label>
           <h2 className="text-[14px] font-medium ml-[8px]">ელ.ფოსტა</h2>
           <input
             className="h-[45px] w-full border-[1px] rounded-[12px] input-shadow pl-[18px] mt-[8px] placeholder:text-[14px] "
             placeholder="შეიყვანეთ თქვენი ელ.ფოსტა"
             type="email"
+            {...register("email", {
+              required: val.requiredMsg,
+              pattern: {
+                value: val.emailPattern,
+                message: val.emailErrorMsg,
+              },
+              maxLength: {
+                value: 254,
+                message: val.emailMaxLengthMsg,
+              },
+            })}
           />
+          {errors.email && (
+            <span className="text-red-600">{errors.email.message}</span>
+          )}
         </label>
         <label>
           <h2 className="text-[14px] font-medium ml-[8px]">პაროლი</h2>
@@ -34,11 +55,40 @@ export default function MainLogin() {
             className="h-[45px] w-full border-[1px] rounded-[12px] input-shadow pl-[18px] mt-[8px] placeholder:text-[14px] "
             placeholder="შეიყვანეთ თქვენი პაროლი"
             type="password"
+            {...register("password", {
+              required: val.requiredMsg,
+              pattern: {
+                value: val.passwordPattern,
+                message: val.passwordMsg,
+              },
+              maxLength: {
+                value: 254,
+                message: val.passwordMaxLengthMsg,
+              },
+              minLength: {
+                value: 8,
+                message: val.passwordMinLengthMsg,
+              },
+            })}
           />
+          {errors.password && (
+            <span className="text-red-600">{errors.password.message}</span>
+          )}
         </label>
-        <label className="flex mt-[10px]">
-          <input className="w-[20px] h-[20px] rounded-[6px]" type="checkbox" />
-          <h2 className="text-[14px] font-medium ml-[8px]">
+
+        <label className="flex mt-[10px] ">
+          <input
+            className="w-[20px] h-[20px] rounded-[6px]"
+            type="checkbox"
+            {...register("checkbox", {
+              required: val.requiredMsg,
+            })}
+          />
+          {errors.checkbox && (
+            <span className="text-red-600 ">{errors.checkbox.message}</span>
+          )}
+
+          <h2 className="text-[14px] font-medium ml-[8px] ">
             დაიმახსოვრე შესვლა
           </h2>
         </label>
