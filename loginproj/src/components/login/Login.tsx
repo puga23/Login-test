@@ -10,6 +10,13 @@ import { GoArrowLeft } from "react-icons/go";
 
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
+type InputData = {
+  name: string;
+  email: string;
+  password: string;
+  saveLogin: boolean;
+};
+
 export default function Login() {
   const [visibility, setVisibility] = useState(false);
 
@@ -17,8 +24,9 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  function onSubmit(data: any) {
+  } = useForm<InputData>();
+
+  function onSubmit(data: InputData) {
     console.log(data);
   }
 
