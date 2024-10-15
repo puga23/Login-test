@@ -3,7 +3,7 @@ import MainForgotPassword from "@/components/auth/forgotpassword/MainForgotPassw
 
 export default function page() {
   return (
-    <div>
+    <div className="h-full">
       <MainForgotPassword />
     </div>
   );
