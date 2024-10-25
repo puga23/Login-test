@@ -40,10 +40,7 @@ export default function MainConfirmEmail() {
             type="text"
             {...register("confirmEmail", {
               required: val.requiredMsg,
-              pattern: {
-                value: val.emailPattern,
-                message: val.emailErrorMsg,
-              },
+
               maxLength: {
                 value: 254,
                 message: val.textMaxLengthMsg,

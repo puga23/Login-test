@@ -2,16 +2,16 @@ import React from "react";
 
 export default function layout({
   children,
-  confirmEmail,
+  confirmemail,
 }: {
   children: React.ReactNode;
-  confirmEmail: React.ReactNode;
+  confirmemail: React.ReactNode;
 }) {
   return (
     <div>
       {children}
 
-      {confirmEmail}
+      {confirmemail}
     </div>
   );
 }
